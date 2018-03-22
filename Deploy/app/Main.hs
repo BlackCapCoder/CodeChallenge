@@ -37,7 +37,7 @@ mkSkipFile ks
 
 main :: IO ()
 main = do
-  setCurrentDirectory "/home/blackcap/proj/challenge/"
+  setCurrentDirectory "/home/blackcap/proj/CodeChallenge/"
 
   keys     <- B.lines <$> B.readFile "keys"
   skipKeys <- replicateM (length keys) randomKey

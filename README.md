@@ -8,8 +8,6 @@ The challenge is divided into levels, and you need the solution to the previous 
 
 That is, at any given time you can view a total of 3 levels that you haven't solved yet.
 
-That is, at any given time you can view a total of 3 levels that you haven't solved yet.
-
 ## About the implementation
 
 I am cheap so I don't want to pay for a server. Therefor, each level is encrypted with AES CRT 256- the key of course being the solution to the previous level. This ensures that the user cannot cheat and move on to later levels.
