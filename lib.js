@@ -139,3 +139,8 @@ game = new function () {
   };
 
 }();
+
+GET ('hashes', data => {
+  const str = aesjs.utils.utf8.fromBytes(data);
+  hashes = str.split('\n');
+});

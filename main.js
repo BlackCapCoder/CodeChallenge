@@ -20,7 +20,7 @@ function loadLevel () {
   cont.classList.remove('loaded');
 
   game.getLevel (str => {
-    if (!str.startsWith('<!--')) {
+    if (md5(str) !== hashes[game.currentLevel]) {
       noanim = true;
       game.currentLevel = lastLvl;
       game.unsolve()

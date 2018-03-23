@@ -8,6 +8,7 @@ import System.FilePath
 import qualified Data.ByteString.Char8 as B
 import Data.Char
 import Codec.Compression.LZ4
+import Crypto.Hash
 
 import Encrypt
 import History
@@ -20,8 +21,12 @@ encLevels :: [SkipKey] -> IO ()
 encLevels ks = do
   fs <- numSort <$> listDirectory "levels"
 
+  removeFile "hashes"
+
   forM_ (zip ks fs) $ \(sk, f) -> do
     q <- B.readFile $ "levels" </> f
+    let hash = hashWith MD5 q
+    appendFile "hashes" $ show hash ++ "\n"
     B.writeFile ("levels-enc" </> f) $ encrypt sk q
 
 crypt :: History -> [(SkipKey, Key)] -> [B.ByteString -> B.ByteString]
