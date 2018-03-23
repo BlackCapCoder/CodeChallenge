@@ -1,0 +1,3 @@
+#!/bin/bash
+
+exec $(cd Deploy && echo $(stack path --local-install-root)/bin/Deploy-exe)
