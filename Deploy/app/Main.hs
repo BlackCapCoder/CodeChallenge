@@ -50,7 +50,7 @@ main = do
   encLevels $ skipKeys
 
   let sf = mkSkipFile $ zip skipKeys keys
-  print $ div (B.length sf) 16
+  print $ B.length sf
   -- let Just csf = compress sf
   -- print $ B.length csf
   B.writeFile "skipfile" sf
