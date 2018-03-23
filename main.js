@@ -39,6 +39,8 @@ function loadLevel () {
     } else {
       setTimeout(f,  300 - (new Date().getTime() - start));
     }
+
+    languages.loadAll();
   });
 
   const el = document.querySelector("#level");
@@ -76,4 +78,3 @@ window.addEventListener('load', _ => {
     onNextClicked();
   });
 });
-
