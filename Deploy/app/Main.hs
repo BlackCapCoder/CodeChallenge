@@ -42,7 +42,7 @@ mkSkipFile ks
 
 main :: IO ()
 main = do
-  -- setCurrentDirectory "/home/blackcap/proj/CodeChallenge/"
+  setCurrentDirectory "/home/blackcap/proj/CodeChallenge/"
 
   keys     <- B.lines <$> B.readFile "keys"
   skipKeys <- replicateM (length keys) randomKey
@@ -50,7 +50,7 @@ main = do
   encLevels $ skipKeys
 
   let sf = mkSkipFile $ zip skipKeys keys
-  print $ B.length sf
+  print $ div (B.length sf) 16
   -- let Just csf = compress sf
   -- print $ B.length csf
   B.writeFile "skipfile" sf
