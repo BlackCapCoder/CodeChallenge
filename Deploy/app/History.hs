@@ -3,6 +3,7 @@ module History where
 
 import Data.Digits
 import Math.Combinatorics.Exact.Binomial
+import Math.Combinatorics.Exact.Factorial
 -- import Debug.Trace
 
 
@@ -41,18 +42,38 @@ histories'' max
     ]
 
 -- Fast way to calculate `length $ histories 3 !! n`, which is `1 + sum [1..n]`
+
+histLength2 0 = 0
+histLength2 n = 1 + n
+
 histLength3 0 = 0
 histLength3 n = 1 + div (n^2 + n) 2
 
 histLength4 0 = 0
 histLength4 n = 1 + div (n^3 + 5*n) 6
+
+histLength5 0 = 0
 histLength5 n = 1 + div (n^4 - 6*n^3 + 23*n^2 - 18*n) 24
 
-histLength m n = length $ histories m !! n
+-- histLength6 0 = 0
+histLength6 n = 1 + div (n^5 - 5*n^4 + 25*n^3 + 5*n^2 + 94*n) 120
+
+histLength  m n = sum $ map (choose n) [0..m-1]
+histLength' m n = length $ histories m !! n
+
+histLength'' _ 0 = 0
+histLength'' m n
+  | x <- m-1
+  = 1 + div (n^x + 0) (factorial x)
+
 
 -- Cummulative history length given level. `sum $ map histLength3 [0..n]`. A003600
-histLength3Cum n | n > 0 = n*(n^2+3*n+8) `div` 6 | otherwise = 0
-histLength4Cum n = n*(n^3 + 2*n^2 + 11*n + 34) `div` 24
+histLength2Cum n = histLength3  (n+1) - 2
+histLength3Cum n = histLength4  (n+1) - 2
+histLength4Cum n = histLength5  (n+2) - 2
+histLength5Cum n = histLength6  (n+0) - 1
+histLength6Cum n = histLength 7 (n+1) - 1
+
 
 -- level given index
 index2Level y = length . takeWhile (y>) . scanl1 (+) $ map histLength3 [0..]
@@ -74,3 +95,5 @@ histToIndex h
 showHist [] = []
 showHist (Skip:x) = 'S' : showHist x
 showHist (Beat:x) = 'B' : showHist x
+
+bino = choose
